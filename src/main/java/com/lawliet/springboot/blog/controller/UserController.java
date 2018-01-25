@@ -51,6 +51,7 @@ public class UserController {
     @PostMapping
     public ModelAndView saveOrUpdateUser(User user){
         user = userRepository.save(user);
+        System.out.println("haha");
         return new ModelAndView("redirect:/users");
 
     }
