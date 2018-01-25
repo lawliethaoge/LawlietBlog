@@ -44,7 +44,9 @@ public class UserController {
     public ModelAndView createForm(Model model) {
         model.addAttribute("user",new User(0,null,null));
         model.addAttribute("title","创建用户");
+        System.out.println("hao");
         return new ModelAndView("users/form", "userModel", model);
+
     }
 
     @PostMapping
