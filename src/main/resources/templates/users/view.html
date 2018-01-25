@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css"/>
+    <script src="/static/js/jquery.1.9.1.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<h3 th:text="${title}"></h3>
+<div>
+    <p><strong>ID:</strong></p><span th:text="${user.id}"></span>
+    <p><strong>Name</strong></p><span th:text="${user.name}"></span>
+    <p><strong>Email</strong></p><span th:text="${user.email}"></span>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css"/>
+    <script src="/static/js/jquery.1.9.1.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<h3 th:text="${title}"></h3>
+<form action="/users" th:action="@{/users}" method="post" th:object="${user}" >
+    <input type="hidden" name="id" th:value="*{id}"/>
+    名称：<br/>
+    <input type="text" name="name" th:value="*{name}"/><br/>
+    邮箱:<br/>
+    <input type="text" name="email" th:value="*{email}"/><br/>
+    <input type="submit" value="提交"/>
+</form>
+<div th:replace="fragments/footer :: footer"></div>
+
+
+</body>
+</html>
