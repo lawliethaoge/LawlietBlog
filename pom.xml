@@ -98,11 +98,25 @@
             <version>4.3.0</version>
         </dependency>
 
+		<!-- spring security -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+			<version>1.5.9.RELEASE</version>
+		</dependency>
+
+		<!-- thymeleaf对security支持 -->
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
+			<version>3.0.2.RELEASE</version>
+		</dependency>
 
 
 
 
-    </dependencies>
+
+	</dependencies>
 
 	<build>
 		<plugins>

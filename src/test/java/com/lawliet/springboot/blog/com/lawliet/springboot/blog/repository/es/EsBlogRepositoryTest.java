@@ -40,11 +40,24 @@ public class EsBlogRepositoryTest {
         String content = "日照";
         Page<EsBlog> page = esBlogRepository.findDistinctEsBlogByTitleContainingOrSummaryContainingOrContentContaining(title,summary,content,pageable);
         assertThat(page.getTotalElements()).isEqualTo(2);
-
+        System.out.println("start-----------------");
         for(EsBlog blog : page.getContent()){
             System.out.println(blog.toString());
         }
         System.out.println("----------end 1");
+
+
+        title = "早发";
+        summary = "嘻嘻";
+        content = "白帝";
+        page = esBlogRepository.findDistinctEsBlogByTitleContainingOrSummaryContainingOrContentContaining(title,summary,content,pageable);
+        assertThat(page.getTotalElements()).isEqualTo(1);
+        System.out.println("start 2-----------------");
+        for(EsBlog blog : page.getContent()){
+            System.out.println(blog.toString());
+        }
+        System.out.println("----------end 2");
+
     }
 
 
