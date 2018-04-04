@@ -1,38 +1,70 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script type="text/javascript" src="/static/js/jquery.1.9.1.js"></script>
-    <link rel="stylesheet" href="/static/js/bootstrap.min.js" type="text/css"/>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head th:replace="~{fragments/header :: header}">
 </head>
 <body>
-<div th:replace="fragments/header :: header"></div>
-<h3 th:text="${title}"></h3>
-<div>
-    <a href="/users/form">创建用户</a>
-</div>
-<table class="table table-bordered">
+<div class="container" >
+	    <div class="mt-3">
+	        <h2  >Welcome to lawliet.com</h2>
+	    </div>
+		<div class="row">
+		    <div class="col-lg-4">
+				<div class="input-group">
+					<input type="text" class="form-control" id="searchName" placeholder="输入用户名称进行搜索">
+					<span class="input-group-btn">
+						<button class="btn btn-secondary" type="button" id="searchNameBtn">Go!</button>
+					</span>
+					<a class="btn btn-primary" href="/users/form" th:href="@{/users/form}" role="button"><i class="fa fa-plus" aria-hidden="true"></i>创建</a>
+				</div>
+		    </div>
+	    </div>	
+	    <div id="mainContainer">
+		 <div id="mainContainerRepleace">
+		    <table class="table table-striped">
+		        <thead class="thead-inverse">
+		        <tr>
+		            <th data-field="id">ID</th>
+		            <th data-field="username">账号</th>
+		            <th data-field="name">姓名</th>
+					<th data-field="email">邮箱</th>
+		            <th data-field="operation">操作</th>
+		        </tr>
+		        </thead>
+		        <tbody>
+		 
+		        <tr th:each="user : ${userList}">
+					<td th:text="${user.id}">1</td>
+					<td th:text="${user.username}">1</td>
+					<td th:text="${user.name}">waylau</td>
+					<td th:text="${user.email}">waylau</td>
+					<td th:text="${user.authorities}">waylau</td>
+		            <td>
+		            	<div>
+		            		<a th:href="@{'/users/modify/'+ 1}">
+		            			<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+		            		</a>
+		        			<a th:href="@{'/users/delete/' + 1}">
+		        				<i class="fa fa-times" aria-hidden="true"></i>
+		        			</a>
+		        		</div>
+		        	</td>
+		        </tr>
+ 
+		        </tbody>
+		        
+		    </table>
+<!-- 			<div th:replace="~{fragments/page :: page}">...</div> -->
+	 
+	 	</div>
+	 </div>
+</div><!-- /.container -->
 
-    <tr>
-        <td>ID</td>
-        <td>Email</td>
-        <td>Name</td>
-    </tr>
+<div th:replace="~{fragments/footer :: footer}">...</div>
 
-
-    <tr th:if="${userList.size()} eq 0">
-        <td colspan="3">没有用户信息</td>
-    </tr>
-    <tr th:each="user : ${userList}">
-        <td th:text="${user.getId()}"></td>
-        <td th:text="${user.getEmail()}"></td>
-        <td><a href="view.html" th:href="@{'/users/'+${user.id}}" th:text="${user.id}"></a></td>
-    </tr>
-
-</table>
-<div th:replace="fragments/footer :: footer"></div>
-
-
+<!-- JavaScript -->
+<script src="/static/js/users/main.js" th:src="@{/js/users/main.js}"></script>
 </body>
 </html>

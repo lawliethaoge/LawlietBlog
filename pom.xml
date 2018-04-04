@@ -112,6 +112,21 @@
 			<version>3.0.2.RELEASE</version>
 		</dependency>
 
+		<!--启用不严格检查html-->
+		<dependency>
+			<groupId>net.sourceforge.nekohtml</groupId>
+			<artifactId>nekohtml</artifactId>
+			<version>1.9.22</version>
+		</dependency>
+
+		<!-- apache-common-lang依赖 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
+		</dependency>
+
+
 
 
 
