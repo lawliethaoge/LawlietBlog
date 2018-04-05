@@ -19,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
             .antMatchers("/static/css/**","/static/js/**","/fonts/**","/index").permitAll()//都可以访问
-            .antMatchers("/users/**").hasRole("ADMIN") //需要对应角色才能访问
+            .antMatchers("/users/**").permitAll() //需要对应角色才能访问
             .and()
             .formLogin()  //基于Form表单登录验证
             .loginPage("/login").failureUrl("/login-error");  //登录界面

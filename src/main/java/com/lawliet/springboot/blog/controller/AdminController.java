@@ -29,10 +29,7 @@ public class AdminController {
     public ModelAndView listUsers(Model model) {
         List<Menu> list = new ArrayList<>();
         list.add(new Menu("用户管理","/users"));
-        list.add(new Menu("角色管理", "/roles"));
-        list.add(new Menu("博客管理", "/blogs"));
-        list.add(new Menu("评论管理", "/commits"));
-        model.addAttribute("list", list);
-        return new ModelAndView("admins/index", "menulist", model);
+        model.addAttribute("menulist", list);
+        return new ModelAndView("admins/index", "model", model);
     }
 }

@@ -52,4 +52,11 @@ public interface UserService {
      */
     Page<User> listUsersByNameLike(String name, Pageable pageable);
 
+    /**
+     * @author hao
+     * @param [pageable]
+     * @return org.springframework.data.domain.Page<com.lawliet.springboot.blog.domain.User>
+     */
+    Page<User> findAll(Pageable pageable);
+
 }

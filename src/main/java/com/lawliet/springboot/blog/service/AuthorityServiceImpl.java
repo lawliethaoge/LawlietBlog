@@ -3,11 +3,13 @@ package com.lawliet.springboot.blog.service;
 import com.lawliet.springboot.blog.domain.Authority;
 import com.lawliet.springboot.blog.respository.AuthorityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author hao@lawliet.com
  * @since 2018/4/4 18:56
  */
+@Service
 public class AuthorityServiceImpl implements AuthorityService {
     private AuthorityRepository authorityRepository;
 

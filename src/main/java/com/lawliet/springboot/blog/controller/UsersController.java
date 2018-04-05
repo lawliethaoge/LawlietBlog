@@ -7,8 +7,6 @@ import com.lawliet.springboot.blog.service.AuthorityService;
 import com.lawliet.springboot.blog.service.UserService;
 import com.lawliet.springboot.blog.util.ConstraintViolationExceptionHandler;
 import com.lawliet.springboot.blog.vo.Response;
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,7 +31,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/users")
-@PreAuthorize("hasAuthority('ROLE_ADMIN')")  // 指定角色权限才能操作方法
+//@PreAuthorize("hasAuthority('ROLE_ADMIN')")  // 指定角色权限才能操作方法
 public class UsersController {
 
 
@@ -56,20 +54,22 @@ public class UsersController {
      *
      */
     @GetMapping
-    public ModelAndView list(@RequestParam(value = "async",required = false)boolean async,
-                             @RequestParam(value = "pageIndex",required = false,defaultValue = "0")int pageIndex,
-                             @RequestParam(value = "pageSize",required = false,defaultValue = "10")int pageSize,
-                             @RequestParam(value = "name",required = false,defaultValue = "")String name,
+    public ModelAndView list(@RequestParam(value="async",required=false,defaultValue = "false") boolean async,
+                             @RequestParam(value="pageIndex",required=false,defaultValue="0") int pageIndex,
+                             @RequestParam(value="pageSize",required=false,defaultValue="10") int pageSize,
+                             @RequestParam(value="name",required=false,defaultValue="") String name,
                              Model model) {
-        Pageable pageable = new PageRequest(pageIndex,pageSize);
+
+        Pageable pageable = new PageRequest(pageIndex, pageSize);
         Page<User> page = userService.listUsersByNameLike(name,pageable);
-        List<User> list = page.getContent();
+        List<User> list = page.getContent();	// 当前所在页面数据列表
 
-        model.addAttribute("page",page);
-        model.addAttribute("userList",list);
-        return new ModelAndView("users/list","userModel",model);
-
+        model.addAttribute("page", page);
+        model.addAttribute("userList", list);
+        if (async == true) return new ModelAndView("users/list :: #mainContainerRepleace", "userModel", model);
+        else return new ModelAndView("users/list", "userModel", model);
     }
+
 
     /**
      * 获取表单页面
@@ -80,7 +80,7 @@ public class UsersController {
     @GetMapping("/add")
     public ModelAndView createForm(Model model){
         model.addAttribute("user",new User(null,null,null,null));
-        return new ModelAndView("user/add","userModel",model);
+        return new ModelAndView("users/add","userModel",model);
 
     }
 

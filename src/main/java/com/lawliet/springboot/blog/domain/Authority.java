@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 
 /**
+ * 权限实体
  * @author hao@lawliet.com
  * @since 2018/4/4 18:48
  */

@@ -43,6 +43,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public Page<User> findAll(Pageable pageable) {
+        Page<User> users = userRepository.findAll(pageable);
+        return users;
+    }
+
+    @Override
     public User findUserById(Long id) {
 
         return userRepository.findOne(id);
@@ -51,8 +57,9 @@ public class UserServiceImpl implements UserService{
     @Override
     public Page<User> listUsersByNameLike(String name, Pageable pageable) {
 
-        name ="%"+ "name" +"%";
+        name ="%"+name+"%";
         Page<User>  users = userRepository.findByNameLike(name,pageable);
+        System.out.println("数据有"+users.getSize()+"条");
         return users;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.net.UnknownServiceException;
 import java.util.List;
 
 /**
@@ -26,6 +27,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return org.springframework.data.domain.Page<com.lawliet.springboot.blog.domain.User>
      */
     Page<User> findByNameLike(String name, Pageable pageable);
+
+
+    /**
+     * @author hao
+     * @param [pageable]
+     * @return org.springframework.data.domain.Page<com.lawliet.springboot.blog.domain.User>
+     */
+    Page<User> findAll(Pageable pageable);
 
 
     /**
