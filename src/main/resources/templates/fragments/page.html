@@ -13,7 +13,7 @@
 	<!-- 处理页数小于等于7 的情况 -->
 	<ul class="pagination" data-th-if="${page.totalPages le 7}" >
 		<!-- 总记录数 -->
-        <h1 th:text="${page.totalElements}"></h1>
+        <!--<h1 th:text="${page.totalElements}"></h1>-->
 		<li class="tbpage-total-elements disabled" th:text="共+${page.totalElements}+条">共[[${page.totalElements}]]条</li>
 
 		<!-- 页面大小 -->

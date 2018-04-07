@@ -42,11 +42,11 @@ public class UsersController {
         this.userService = userService;
     }
 
-    private AuthorityRepository authorityRepository;
+    private AuthorityService authorityService;
 
     @Autowired
-    public void setAuthorityRepository(AuthorityRepository authorityRepository) {
-        this.authorityRepository = authorityRepository;
+    public void setAuthorityService(AuthorityService authorityService) {
+        this.authorityService = authorityService;
     }
 
     /**
@@ -85,15 +85,15 @@ public class UsersController {
     }
 
     /**
-     * 添加用户
+     * 保存或修改用户
      * @author hao
      * @param [user, authorityId]
      * @return org.springframework.http.ResponseEntity<com.lawliet.springboot.blog.vo.Response>
      */
     @PostMapping
-    public ResponseEntity<Response> create(User user,Long authorityId){
-        List<Authority> authorities = new ArrayList<>();
-        authorities.add(authorityRepository.findAuthoritiesById(authorityId));
+    public ResponseEntity<Response> saveOrUpdateUser(User user,Long authorityId){
+        List<Authority> authorities = new ArrayList<>();                              //设置权限
+        authorities.add(authorityService.getAuthorityById(authorityId));
         user.setAuthorities(authorities);
 
         if(user.getId() == null){

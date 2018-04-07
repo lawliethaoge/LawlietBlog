@@ -66,7 +66,7 @@ public class MainController {
     @PostMapping("/register")
     public String registeradd(User user){
         List<Authority> authorities = new ArrayList<>();
-        authorities.add(authorityService.getAuthorityById(ROLE_USER_AUTHORITY_ID));
+        authorities.add(authorityService.getAuthorityById(ROLE_USER_AUTHORITY_ID));               //注册用户都是博主权限
         user.setAuthorities(authorities);
         userService.saveOrUpdateUser(user);
         return "redirect:/login";

@@ -5,6 +5,9 @@ import com.lawliet.springboot.blog.respository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @since 2018/3/24 16:16
  */
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService , UserDetailsService{
 
 
     private UserRepository userRepository;
@@ -52,6 +55,12 @@ public class UserServiceImpl implements UserService{
     public User findUserById(Long id) {
 
         return userRepository.findOne(id);
+    }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username);
     }
 
     @Override

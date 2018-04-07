@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -18,7 +19,10 @@ import java.util.List;
  * @since 2018/1/22 21:29
  */
 @Entity//实体
-public class User {
+public class User implements UserDetails{
+
+//    private static final Long serialVersionUID = 1L;
+
     @Id//主键
     @GeneratedValue(strategy = GenerationType.IDENTITY)  //主键策略（自增）
     private Long id;  //唯一标识
@@ -68,15 +72,6 @@ public class User {
     }
 
 
-    //???????????????????????????
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        //  需将 List<Authority> 转成 List<SimpleGrantedAuthority>，否则前端拿不到角色列表名称
-        List<SimpleGrantedAuthority> simpleAuthorities = new ArrayList<>();
-        for(GrantedAuthority authority : this.authorities){
-            simpleAuthorities.add(new SimpleGrantedAuthority(authority.getAuthority()));
-        }
-        return simpleAuthorities;
-    }
 
     public void setAuthorities(List<Authority> authorities) {
         this.authorities = authorities;
@@ -102,9 +97,12 @@ public class User {
         return username;
     }
 
+
     public void setUsername(String username) {
         this.username = username;
     }
+
+
 
     public String getPassword() {
         return password;
@@ -126,18 +124,47 @@ public class User {
         return email;
     }
 
+    public void setEmail(String email) {
+
+        this.email = email;
+    }
+
     public void setEncodePassword(String password) {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodePasswd = encoder.encode(password);
         this.password = encodePasswd;
     }
 
-
-
-    public void setEmail(String email) {
-
-        this.email = email;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> simpleGrantedAuthorities  = new ArrayList<>();
+        for(GrantedAuthority grantedAuthority : this.authorities){
+            simpleGrantedAuthorities.add(new SimpleGrantedAuthority(grantedAuthority.getAuthority()));
+        }
+        return simpleGrantedAuthorities;
+    }
+
+
 
 
     @Override
