@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -19,9 +20,9 @@ import java.util.List;
  * @since 2018/1/22 21:29
  */
 @Entity//实体
-public class User implements UserDetails{
+public class User implements UserDetails,Serializable {
 
-//    private static final Long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     @Id//主键
     @GeneratedValue(strategy = GenerationType.IDENTITY)  //主键策略（自增）

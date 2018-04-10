@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -22,35 +23,37 @@ import java.security.Key;
  * @since 2018/3/15 17:06
  */
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)  //启用方法安全设置
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String KEY = "lawliethaoge.com";
+    private static final String KEY = "waylau.com";
 
+    @Autowired
     private UserDetailsService userDetailsService;
 
+//    @Autowired
+//    public void setUserDetailsService(UserDetailsService userDetailsService) {
+//        this.userDetailsService = userDetailsService;
+//    }
+
     @Autowired
-    public void setUserDetailsService(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
-
-
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+//    @Autowired
+//    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+//        this.passwordEncoder = passwordEncoder;
+//    }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();    //使用BCrypt加密
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(){
+    public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
-        authenticationProvider.setPasswordEncoder(passwordEncoder); //设置密码加密
+        authenticationProvider.setPasswordEncoder(passwordEncoder); // 设置密码加密方式
         return authenticationProvider;
     }
 
@@ -58,22 +61,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .antMatchers("/static/css/**","/static/js/**","/fonts/**","/index").permitAll()//都可以访问
-            .antMatchers("/admins/**").hasRole("ADMIN") //需要管理员权限才能访问
-            .and()
-            .formLogin()  //基于Form表单登录验证
-            .loginPage("/login").failureUrl("/login-error") //登录界面
-            .and().rememberMe().key(KEY)
-            .and().exceptionHandling().accessDeniedPage("/403");    //处理异常，拒绝访问重定向到403
+                .antMatchers("/static/css/**", "/static/js/**", "/fonts/**", "/index").permitAll()//都可以访问
+                .antMatchers("/admins/**").hasRole("ADMIN") //需要管理员权限才能访问
+                .and()
+                .formLogin()  //基于Form表单登录验证
+                .loginPage("/login").failureUrl("/login-error") //登录界面
+                .and().rememberMe().key(KEY)          //启用remember me
+                .and().exceptionHandling().accessDeniedPage("/403") ;   //处理异常，拒绝访问重定向到403
+
+//        http.csrf().ignoringAntMatchers("/h2-console/**"); // 禁用 H2 控制台的 CSRF 防护
+//        http.headers().frameOptions().sameOrigin(); // 允许来自同一来源的H2 控制台的请求
     }
 
     /*
      * 认证信息管理
      */
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
-        auth.authenticationProvider();
+        auth.authenticationProvider(authenticationProvider());
 
     }
 }
