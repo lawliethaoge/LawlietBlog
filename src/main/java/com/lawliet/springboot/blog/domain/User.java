@@ -1,5 +1,6 @@
 package com.lawliet.springboot.blog.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
@@ -88,9 +89,11 @@ public class User implements UserDetails,Serializable {
         this.authorities = authorities;
     }
 
+
     public Long getId() {
         return id;
     }
+
 
     public void setId(Long id) {
         this.id = id;

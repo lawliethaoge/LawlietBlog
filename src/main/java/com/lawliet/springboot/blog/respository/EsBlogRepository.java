@@ -17,5 +17,5 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchCrudReposi
 
 public interface EsBlogRepository extends ElasticsearchCrudRepository<EsBlog,String> {
     //分页查询blog（去重）
-    Page<EsBlog> findDistinctEsBlogByTitleContainingOrSummaryContainingOrContentContaining(String title, String summary, String content,  Pageable pageable);
+    Page<EsBlog> findDistinctEsBlogByTitleContainingOrSummaryContainingOrContentContaining(String title, String summary, String content, Pageable pageable);
 }

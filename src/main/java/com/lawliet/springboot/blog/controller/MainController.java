@@ -64,7 +64,7 @@ public class MainController {
         return "register";
     }
     @PostMapping("/register")
-    public String registeradd(User user){
+    public String registerAdd(User user){
         List<Authority> authorities = new ArrayList<>();
         authorities.add(authorityService.getAuthorityById(ROLE_USER_AUTHORITY_ID));               //注册用户都是博主权限
         user.setAuthorities(authorities);

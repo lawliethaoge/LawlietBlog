@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:replace="~{fragments/header :: header}">
+<head th:replace="fragments/header :: header">
 </head>
 <body>
 <!-- Page Content -->
@@ -44,7 +44,7 @@
                 <div class="card-block">
 
 
-                    <h5>分类：<a th:href="'/u/'+${blogModel.user.username} + '/blogs?catalog='+${blogModel.catalog.id} " th:text="${blogModel.catalog.name}">
+                    <h5>分类：<a>
                         Spring Data
                     </a></h5>
 
@@ -63,23 +63,23 @@
                         </div>
                     </div>
                     <button class="btn btn-primary float-right" id="submitComment">发表评论</button>
-					<button class="btn btn-primary float-right" th:if="${currentVote} == null" id="submitVote">点赞</button>
-					<button class="btn btn-primary float-right" th:if="${currentVote}" th:attr="voteId=${currentVote.id}" id="cancelVote">取消点赞</button>
+					<button class="btn btn-primary float-right" >点赞</button>
+					<button class="btn btn-primary float-right"  id="cancelVote">取消点赞</button>
                 </div>
                 <div class="card-block" id="mainContainer">
 
-                    <div class="row" id="mainContainerRepleace" th:each="comment,commentStat : ${comments}" th:object="${comment}">
+                    <div class="row" id="mainContainerRepleace" >
                         <h2 class="card-title col-lg-1 col-md-2">
 							<span>
-			                  <a href="/u/waylau" th:href="'/u/'+ *{user.username}" title="waylau" th:title="*{user.username}">
-			                    <img src="/images/avatar-defualt.jpg" th:src="*{user.avatar} == null ? '/images/avatar-defualt.jpg' : *{user.avatar}" class="blog-avatar-50">
+			                  <a href="/u/waylau" th:href="'/u/'+ ${user.username}" title="waylau" th:title="${user.username}">
+			                    <img src="/images/avatar-defualt.jpg" th:src="${blogModel.user.avatar} == null ? '/images/avatar-defualt.jpg' : ${blogModel.user.avatar}" class="blog-avatar-50">
 			                  </a>
 					        </span>
                         </h2>
                         <div class="card-text col-lg-11 col-md-10">
-                            <a href="/u/waylau" th:href="'/u/'+ *{user.username}" class="card-link" th:text="*{user.username}">waylau</a> [[${commentStat.index} + 1]]楼  [[${#dates.format(comment.createTime, 'yyyy-MM-dd HH:mm')}]] 
-                            <a href="javascript:void(0)" class="blog-delete-comment" th:if="${commentOwner} eq *{user.username}" th:attr="commentId=*{id}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                            <p th:text="*{content}">不错哦，顶起！</p>
+                            <a href="/u/waylau" th:href="'/u/'+ ${user.username}" class="card-link" th:text="${user.username}">waylau</a> [[${commentStat.index} + 1]]楼  [[${#dates.format(comment.createTime, 'yyyy-MM-dd HH:mm')}]]
+                            <a href="javascript:void(0)" class="blog-delete-comment" ><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                            <p >不错哦，顶起！</p>
                         </div>
                     </div>
 
@@ -111,13 +111,13 @@
 <!-- /.container -->
 
 
-<div th:replace="~{fragments/footer :: footer}">...</div>
+<div th:replace="fragments/footer :: footer">...</div>
 
 <!-- JavaScript -->
 <script th:inline="javascript">
 var blogId = [[${blogModel.id}]];
 var blogUrl = '/u/' + [[${blogModel.user.username}]] + '/blogs/'+ [[${blogModel.id}]] ;
 </script>
-<script src="../../js/userspace/blog.js" th:src="@{/js/userspace/blog.js}"></script>
+<script src="/static/js/userspace/blog.js" th:src="@{/js/userspace/blog.js}"></script>
 </body>
 </html>

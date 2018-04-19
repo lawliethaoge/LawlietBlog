@@ -30,6 +30,7 @@ public class AdminController {
         List<Menu> list = new ArrayList<>();
         list.add(new Menu("用户管理","/users"));
         model.addAttribute("menulist", list);
+        System.out.println("haha");
         return new ModelAndView("admins/index", "model", model);
     }
 }

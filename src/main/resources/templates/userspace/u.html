@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:replace="~{fragments/header :: header}">
+<head th:replace="fragments/header :: header">
 </head>
 <body>
 <!-- Page Content -->
@@ -50,7 +50,7 @@
 			data-target="#flipFlop" role="button"><i
 			class="fa fa-plus" aria-hidden="true"></i></a></h5>
 	
-	            <ul class="list-group" th:each="catalog : ${catalogs}" th:object="${catalog}">
+	            <ul class="list-group" th:each="catalog : ${catalogId}" th:object="${catalogId}">
 	            	<div class="blog-list-group-item">
 	     	 
 	     				
@@ -122,7 +122,7 @@
 		                </div>
 		            </div>
 	 
-		            <div th:replace="~{fragments/page :: page}">...</div>
+		            <div th:replace="fragments/page :: page">...</div>
 	            </div>
             </div>
 
@@ -155,7 +155,7 @@
 	</div>
 </div>
 
-<div th:replace="~{fragments/footer :: footer}">...</div>
+<div th:replace="fragments/footer :: footer">...</div>
 
 <!-- JavaScript -->
 <script th:inline="javascript">
