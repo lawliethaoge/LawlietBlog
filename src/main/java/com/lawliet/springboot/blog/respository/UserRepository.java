@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.net.UnknownServiceException;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -44,6 +45,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return com.lawliet.springboot.blog.domain.User
      */
     User findByUsername(String username);
+
+    /**
+     * 根据名称列表查询
+     * @param [usernames]
+     * @return java.util.List<com.lawliet.springboot.blog.domain.User>
+     */
+    List<User> findByUsernameIn(Collection<String> usernames);
 
 
 }

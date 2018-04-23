@@ -23,7 +23,7 @@ import java.util.List;
 public class MainController {
     private static final Long ROLE_USER_AUTHORITY_ID = 2L;
 
-    private  UserService userService;
+    private UserService userService;
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -37,25 +37,31 @@ public class MainController {
         this.authorityService = authorityService;
     }
 
+
     @GetMapping("/")
-    public String root(){
-        return "redirect:/index";       //重定向
+    public String root() {
+        return "redirect:/index";
     }
 
     @GetMapping("/index")
-    public String index(){
-        return "index";
+    public String index() {
+        return "redirect:/blogs";
     }
 
+    /**
+     * 获取登录界面
+     *
+     * @return
+     */
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "login";
     }
 
     @GetMapping("/login-error")
-    public String loginError(Model model){
-        model.addAttribute("loginError",true);
-        model.addAttribute("errorMsg","对不起，登录失败，用户名或密码错误");
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        model.addAttribute("errorMsg", "登陆失败，账号或者密码错误！");
         return "login";
     }
 
@@ -63,10 +69,19 @@ public class MainController {
     public String register() {
         return "register";
     }
+
+    /**
+     * 注册用户
+     *
+     * @param user
+     * @param result
+     * @param redirect
+     * @return
+     */
     @PostMapping("/register")
-    public String registerAdd(User user){
+    public String registerUser(User user) {
         List<Authority> authorities = new ArrayList<>();
-        authorities.add(authorityService.getAuthorityById(ROLE_USER_AUTHORITY_ID));               //注册用户都是博主权限
+        authorities.add(authorityService.getAuthorityById(ROLE_USER_AUTHORITY_ID));
         user.setAuthorities(authorities);
         userService.saveOrUpdateUser(user);
         return "redirect:/login";

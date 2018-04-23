@@ -1,42 +1,37 @@
 package com.lawliet.springboot.blog.domain;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 /**
- * commit 实体
  * @author hao@lawliet.com
- * @since 2018/4/22 21:08
+ * @since 2018/4/23 22:32
  */
 @Entity
-public class Comment implements Serializable{
+public class Catalog implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id // 主键
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 自增长策略
     private Long id; // 用户的唯一标识
 
-    @NotEmpty(message = "评论内容不能为空")
-    @Size(min=2, max=500)
+    @NotEmpty(message = "名称不能为空")
+    @Size(min=2, max=30)
     @Column(nullable = false) // 映射为字段，值不能为空
-    private String content;
+    private String name;
 
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 
-    @Column(nullable = false) // 映射为字段，值不能为空
-    @org.hibernate.annotations.CreationTimestamp  // 由数据库自动创建时间
-    private Timestamp createTime;
-
-    protected Comment(){
-
+    protected Catalog() {
     }
-    public Comment(User user, String content) {
-        this.content = content;
+
+    public Catalog(User user, String name) {
+        this.name = name;
         this.user = user;
     }
 
@@ -52,12 +47,12 @@ public class Comment implements Serializable{
         this.id = id;
     }
 
-    public String getContent() {
-        return content;
+    public String getName() {
+        return name;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public User getUser() {
@@ -67,9 +62,4 @@ public class Comment implements Serializable{
     public void setUser(User user) {
         this.user = user;
     }
-
-    public Timestamp getCreateTime() {
-        return createTime;
-    }
-
 }
