@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <span>
-                      <a href="/u/waylau" th:href="'/u/' + ${user.username}" title="waylau" th:title="${user.username}">
+                      <a href="/u/lawliet" th:href="'/u/' + ${user.username}" title="lawliet" th:title="${user.username}">
                         <img th:src="${user.avatar} == null ? '/images/avatar-defualt.jpg' : ${user.avatar} "
                              class="blog-avatar-230">
                       </a>
@@ -29,7 +29,7 @@
 
                 <div class="col-md-12">
                     <h2 class="card-text" th:text="${user.name}">老卫</h2>
-                    <h4 class="card-text" th:text="${user.username}">waylau</h4>
+                    <h4 class="card-text" th:text="${user.username}">lawliet</h4>
                 </div>
             </div>
 
@@ -37,7 +37,7 @@
             <div class="row ">
                 <div class="col-md-12">
                     <h5><i class="fa fa-envelope-o" aria-hidden="true"></i>
-                        <a href="mailto:waylau521@gmail.com" th:href="'mailto:'+ ${user.email}" th:text="${user.email}">waylau521@gmail.com</a>
+                        <a href="mailto:lawliet521@gmail.com" th:href="'mailto:'+ ${user.email}" th:text="${user.email}">lawliet521@gmail.com</a>
                     </h5>
                 </div>
             </div>
@@ -114,7 +114,7 @@
                     <div class="card mb-4" th:each="blog : ${blogList}">
                         <div class="card-block">
                             <h2 class="card-title">
-                                <a href="/u/waylau/blogs/1" class="card-link" title="waylau"
+                                <a href="/u/lawliet/blogs/1" class="card-link" title="lawliet"
                                    th:href="'/u/' + ${blog.user.username} + '/blogs/'+ ${blog.id}"
                                    th:title="${blog.user.username}" th:text="${blog.title}">
                                     OAuth 2.0 认证的原理与实践

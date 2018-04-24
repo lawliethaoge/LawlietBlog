@@ -39,10 +39,12 @@
                             <div class="card-text">
                                 <a href="/u/lawliet" th:href="'/u/' + ${blog.username}" class="card-link"
                                    th:text=${blog.username}>lawliet</a> <span th:text="发表于 +${#dates.format(blog.createTime,
-                                'yyyy-MM-dd HH:mm')} "></span><i class="fa fa-eye" aria-hidden="true" th:text="${blog.readSize}">[[${blog.readSize}]]</i>
-                                <i class="fa fa-heart-o" aria-hidden="true" th:text="${blog.voteSize}">[[${blog.voteSize}]]</i> <i
-                                    class="fa fa-comment-o"
-                                    aria-hidden="true" th:text="${blog.commentSize}">[[${blog.commentSize}]]</i>
+                                'yyyy-MM-dd HH:mm')} "></span><i class="fa fa-eye" aria-hidden="true"
+                                                                 th:text="${blog.readSize}">[[${blog.readSize}]]</i>
+                                <i class="fa fa-heart-o" aria-hidden="true" th:text="${blog.voteSize}">[[${blog.voteSize}]]</i>
+                                <i
+                                        class="fa fa-comment-o"
+                                        aria-hidden="true" th:text="${blog.commentSize}">[[${blog.commentSize}]]</i>
                             </div>
                         </div>
                     </div>
@@ -56,16 +58,13 @@
         <!-- 右侧栏目 -->
         <div class="col-md-4">
             <div>
-                <!-- 热门标签 -->
                 <div class="card ">
                     <h5 class="card-header"><i class="fa fa-tags" aria-hidden="true"></i> 热门标签</h5>
                     <div class="card-block">
                         <div class="row">
-                            <div class="col-lg-12">
-                                <a th:each="tag, tagStat : ${tags}" th:object="${tag}" href="/blogs?keyword=1"
-                                   th:href="'/blogs?keyword=' +  *{name}"> <span class="badge"
-                                                                                 th:classappend="${tagStat.index} eq 0 ? 'badge-danger': (${tagStat.index} eq 1 ? 'badge-warning':(${tagStat.index} eq 2 ? 'badge-info':'badge-default'))"
-                                                                                 th:text="*{name}">Web Design</span></a>
+                            <div class="col-lg-12" >
+                                <a th:each="tag, tagStat : ${tags}" th:object="${tag}" href="/blogs?keyword=1" th:href="'/blogs?keyword=' +  *{name}"> <span class="badge"
+                                                                                                                                                             th:classappend="${tagStat.index} eq 0 ? 'badge-danger': (${tagStat.index} eq 1 ? 'badge-warning':(${tagStat.index} eq 2 ? 'badge-info':'badge-default'))"th:text="*{name}">Web Design</span></a>
                             </div>
                         </div>
                     </div>
@@ -97,7 +96,8 @@
                     <ul class="list-group" th:each="hotblog , hotblogStat : ${hotest}" th:object="${hotblog}">
                         <a th:href="'/u/'+*{username} +'/blogs/'+ *{blogId}" class="list-group-item" th:text="*{title}">
                             [[*{title}]]<span class="badge badge-pill"
-                                              th:classappend="${hotblogStat.index} eq 0 ? 'badge-danger': (${hotblogStat.index} eq 1 ? 'badge-warning':(${hotblogStat.index} eq 2 ? 'badge-info':'badge-default'))" th:text="*{readSize}">[[*{readSize}]]</span>
+                                              th:classappend="${hotblogStat.index} eq 0 ? 'badge-danger': (${hotblogStat.index} eq 1 ? 'badge-warning':(${hotblogStat.index} eq 2 ? 'badge-info':'badge-default'))"
+                                              th:text="*{readSize}">[[*{readSize}]]</span>
                         </a>
                     </ul>
 
