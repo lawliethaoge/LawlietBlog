@@ -113,7 +113,8 @@ public class UserspaceController {
      */
     @PostMapping("/{username}/profile")
     @PreAuthorize("authentication.name.equals(#username)")
-    public String saveProfile(@PathVariable("username") String username, User user) {
+    public String saveProfile(@PathVariable("username")
+                                          String username, User user) {
         User originUser = userService.findUserById(user.getId());
         originUser.setEmail(user.getEmail());
         originUser.setName(user.getName());
@@ -121,17 +122,16 @@ public class UserspaceController {
         String rawPassword = originUser.getPassword();
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodePasswd = encoder.encode(user.getPassword());
-        System.out.println("修改过密码：" + rawPassword + "    原始密码：" + encodePasswd);
+        System.out.println("修改过密码：" + rawPassword +
+                "    原始密码：" + encodePasswd);
         boolean isMatch = encoder.matches(rawPassword, encodePasswd);
         if (!isMatch) {
             originUser.setEncodePassword(user.getPassword());
         }
 
-        userService.saveOrUpdateUser(originUser);                    //保存修改
+        userService.saveOrUpdateUser(originUser);
         return "redirect:/u/" + username + "/profile";
-
-
-    }
+        }
 
 
     /**
@@ -314,7 +314,7 @@ public class UserspaceController {
             blog.setCatalog(catalog);
             blogService.saveBlog(blog);
             String redirectUrl = "/u/" + username + "/blogs/" + blog.getId();
-            return ResponseEntity.ok().body(new Response(false,"未选择分类，为您放入默认分类",redirectUrl));
+            return ResponseEntity.ok().body(new Response(true,"未选择分类，为您放入默认分类",redirectUrl));
         }
         try {
 

@@ -93,13 +93,20 @@ public class EsBlogServiceImpl implements EsBlogService {
 
     @Override
     public Page<EsBlog> listHotestEsBlogs(String keyword, Pageable pageable) {
-        Sort sort = new Sort(Sort.Direction.DESC, "readSize", "commentSize", "voteSize", "createTime");
+        Sort sort = new Sort(Sort.Direction.DESC,
+                "readSize",
+                "commentSize",
+                "voteSize",
+                "createTime");
         if (pageable.getSort() == null) {
-            pageable = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), sort);
+            pageable = new PageRequest
+                    (pageable.getPageNumber(),
+                            pageable.getPageSize(), sort);
         }
 
         return esBlogRepository.findDistinctEsBlogByTitleContainingOrSummaryContainingOrContentContainingOrTagsContaining(keyword, keyword, keyword, keyword, pageable);
     }
+
 
     @Override
     public Page<EsBlog> listEsBlogs(Pageable pageable) {

@@ -3,6 +3,7 @@ package com.lawliet.springboot.blog.service;
 import com.lawliet.springboot.blog.domain.*;
 import com.lawliet.springboot.blog.domain.es.EsBlog;
 import com.lawliet.springboot.blog.respository.BlogRepository;
+import com.lawliet.springboot.blog.util.SensitiveWordFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +32,9 @@ public class BlogServiceImpl implements BlogService {
     public void setEsBlogService(EsBlogService esBlogService) {
         this.esBlogService = esBlogService;
     }
+
+    @Autowired
+    private SensitiveWordFilter sensitiveWordFilter;
 
     @Transactional
     @Override
@@ -99,6 +103,7 @@ public class BlogServiceImpl implements BlogService {
     public Blog createComment(Long blogId, String commentContent) {
         Blog originalBlog = blogRepository.findOne(blogId);
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        commentContent = sensitiveWordFilter.replaceSensitiveWord(commentContent,2,"*");    //将评论过滤
         Comment comment = new Comment(user, commentContent);
         originalBlog.addComment(comment);
         return blogRepository.save(originalBlog);

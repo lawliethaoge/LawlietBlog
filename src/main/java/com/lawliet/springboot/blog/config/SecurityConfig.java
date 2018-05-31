@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/static/css/**", "/static/js/**", "/fonts/**", "/index").permitAll()//都可以访问
+                .antMatchers("/static/css/**", "/static/js/**", "/fonts/**", "/index").permitAll()
                 .antMatchers("/admins/**").hasRole("ADMIN") //需要管理员权限才能访问
                 .and()
                 .formLogin()  //基于Form表单登录验证
@@ -69,8 +69,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().rememberMe().key(KEY)          //启用remember me
                 .and().exceptionHandling().accessDeniedPage("/403") ;   //处理异常，拒绝访问重定向到403
 
-//        http.csrf().ignoringAntMatchers("/h2-console/**"); // 禁用 H2 控制台的 CSRF 防护
-//        http.headers().frameOptions().sameOrigin(); // 允许来自同一来源的H2 控制台的请求
     }
 
     /*
