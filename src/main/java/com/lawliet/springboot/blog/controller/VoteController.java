@@ -68,7 +68,7 @@ public class VoteController {
      * @return org.springframework.http.ResponseEntity<com.lawliet.springboot.blog.vo.Response>
      */
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_USER')")  // 指定角色权限才能操作方法
+//    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_USER')")  // 指定角色权限才能操作方法
     public ResponseEntity<Response> delete(@PathVariable("id") Long id, Long blogId) {
 
         boolean isOwner = false;

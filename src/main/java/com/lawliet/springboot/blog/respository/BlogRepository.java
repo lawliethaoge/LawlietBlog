@@ -35,5 +35,12 @@ public interface BlogRepository extends JpaRepository<Blog,Long> {
      */
     Page<Blog> findByCatalog(Catalog catalog, Pageable pageable);
 
+   /**
+    * 根据标题查找博客列表
+    * @param [title]
+    * @return org.springframework.data.domain.Page<com.lawliet.springboot.blog.domain.Blog>
+    */
+    Page<Blog> findAllByTitleLike(String title,Pageable pageable);
+
 
 }

@@ -41,6 +41,12 @@ public interface BlogService {
     Blog getBlogById(Long id);
 
     /**
+     * @param [title, pageable]
+     * @return org.springframework.data.domain.Page<com.lawliet.springboot.blog.domain.Blog>
+     */
+    Page<Blog> ListBlogsByTitle(String title, Pageable pageable);
+
+    /**
      * 通过用户，标题查找博客（最新）
      *
      * @param [user, title, pageable]

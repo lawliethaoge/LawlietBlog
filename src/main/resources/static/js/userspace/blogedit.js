@@ -34,24 +34,24 @@ $(function() {
  
     });
  
- 	$("#uploadImage").click(function() {
-		$.ajax({
-		    url: 'http://localhost:8081/upload',
-		    type: 'POST',
-		    cache: false,
-		    data: new FormData($('#uploadformid')[0]),
-		    processData: false,
-		    contentType: false,
-		    success: function(data){
-		    	var mdcontent=$("#md").val();
-		    	 $("#md").val(mdcontent + "\n![]("+data +") \n");
- 
-	         }
-		}).done(function(res) {
-			$('#file').val('');
-		}).fail(function(res) {});
- 	})
- 
+ 	// $("#uploadImage").click(function() {
+		// $.ajax({
+		//     url: 'http://localhost:8081/upload',
+		//     type: 'POST',
+		//     cache: false,
+		//     data: new FormData($('#uploadformid')[0]),
+		//     processData: false,
+		//     contentType: false,
+		//     success: function(data){
+		//     	var mdcontent=$("#md").val();
+		//     	 $("#md").val(mdcontent + "\n![]("+data +") \n");
+     //
+	 //         }
+		// }).done(function(res) {
+		// 	$('#file').val('');
+		// }).fail(function(res) {});
+ 	// })
+     //
  	// 发布博客
  	$("#submitBlog").click(function() {
  		

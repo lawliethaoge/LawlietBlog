@@ -4,6 +4,7 @@ import com.lawliet.springboot.blog.domain.User;
 import com.lawliet.springboot.blog.domain.es.EsBlog;
 import com.lawliet.springboot.blog.respository.EsBlogRepository;
 import com.lawliet.springboot.blog.vo.TagVO;
+
 import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 import static org.elasticsearch.search.aggregations.AggregationBuilders.terms;
 
@@ -110,11 +111,12 @@ public class EsBlogServiceImpl implements EsBlogService {
 
     @Override
     public Page<EsBlog> listEsBlogs(Pageable pageable) {
-        return  esBlogRepository.findAll(pageable);
+        return esBlogRepository.findAll(pageable);
     }
 
     /**
      * 最新前5
+     *
      * @param []
      * @return java.util.List<com.lawliet.springboot.blog.domain.es.EsBlog>
      */
@@ -126,6 +128,7 @@ public class EsBlogServiceImpl implements EsBlogService {
 
     /**
      * 最热前5
+     *
      * @param []
      * @return java.util.List<com.lawliet.springboot.blog.domain.es.EsBlog>
      */
@@ -153,7 +156,7 @@ public class EsBlogServiceImpl implements EsBlogService {
             }
         });
 
-        StringTerms modelTerms =  (StringTerms)aggregations.asMap().get("tags");
+        StringTerms modelTerms = (StringTerms) aggregations.asMap().get("tags");
 
         Iterator<Terms.Bucket> modelBucketIt = modelTerms.getBuckets().iterator();
         while (modelBucketIt.hasNext()) {
@@ -183,7 +186,7 @@ public class EsBlogServiceImpl implements EsBlogService {
             }
         });
 
-        StringTerms modelTerms =  (StringTerms)aggregations.asMap().get("users");
+        StringTerms modelTerms = (StringTerms) aggregations.asMap().get("users");
 
         Iterator<Bucket> modelBucketIt = modelTerms.getBuckets().iterator();
         while (modelBucketIt.hasNext()) {

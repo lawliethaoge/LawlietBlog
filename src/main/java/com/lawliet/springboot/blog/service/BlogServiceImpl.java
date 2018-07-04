@@ -71,6 +71,13 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public Page<Blog> ListBlogsByTitle(String title, Pageable pageable) {
+        title = "%" + title + "%";
+        Page<Blog> blogs = blogRepository.findAllByTitleLike(title,pageable);
+        return blogs;
+    }
+
+    @Override
     public Page<Blog> ListBlogsByTitleAndTime(User user, String title, Pageable pageable) {
         title = "%" + title + "%";
         String tags = title;
@@ -102,8 +109,11 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog createComment(Long blogId, String commentContent) {
         Blog originalBlog = blogRepository.findOne(blogId);
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        commentContent = sensitiveWordFilter.replaceSensitiveWord(commentContent,2,"*");    //将评论过滤
+        User user = (User) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        commentContent =
+                sensitiveWordFilter.replaceSensitiveWord
+                        (commentContent,2,"*");    //将评论过滤
         Comment comment = new Comment(user, commentContent);
         originalBlog.addComment(comment);
         return blogRepository.save(originalBlog);

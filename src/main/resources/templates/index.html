@@ -96,7 +96,7 @@
                     <ul class="list-group" th:each="hotblog , hotblogStat : ${hotest}" th:object="${hotblog}">
                         <a th:href="'/u/'+*{username} +'/blogs/'+ *{blogId}" class="list-group-item" th:text="*{title}">
                             [[*{title}]]<span class="badge badge-pill"
-                                              th:classappend="${hotblogStat.index} eq 0 ? 'badge-danger': (${hotblogStat.index} eq 1 ? 'badge-warning':(${hotblogStat.index} eq 2 ? 'badge-info':'badge-default'))"
+
                                               th:text="*{readSize}">[[*{readSize}]]</span>
                         </a>
                     </ul>
